@@ -53,7 +53,7 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: premsvc1
+    app: prem-app
   type: NodePort
 status:
   loadBalancer: {}
