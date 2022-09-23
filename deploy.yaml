@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: prem-dev-ns
+spec: {}
+status: {}
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: prem-app
+  name: prem-app
+  namespace: prem-dev-ns
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: prem-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: prem-app
+    spec:
+      containers:
+      - image: dockerashu/ashumobiwebapp:6
+        name: ashumobiwebapp
+        ports:
+        - containerPort: 80
+        resources: {}
+status: {}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: premsvc1
+  name: premsvc1
+  namespace: prem-dev-ns
+spec:
+  ports:
+  - name: 1234-80
+    port: 1234
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: premsvc1
+  type: NodePort
+status:
+  loadBalancer: {}
